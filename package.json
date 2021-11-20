@@ -2,10 +2,11 @@
   "name": "terravision2021",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "next ./src",
+    "build": "next build ./src",
+    "start": "next start ./src",
+    "lint": "next lint",
+    "tsc": "tsc -p ./src/tsconfig.json"
   },
   "dependencies": {
     "next": "12.0.4",
