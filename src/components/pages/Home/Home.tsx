@@ -7,9 +7,14 @@ import { Box } from '@mui/system';
 import styled from 'styled-components';
 import { DeckMap } from '../../molecules/DeckMap';
 import { ArticleCard } from '../../molecules/ArticleCard';
+import { ContinentCsv } from '../../../types/entity/CsvDto';
 
-export const Home: FC = () => {
+interface Props { demographicData: ContinentCsv }
+
+export const Home: FC<Props> = props => {
   const statePolygons = useSelector((state: GlobalState) => state.map.polygons);
+
+  // console.log(props.demographicData)
 
   return (
     <>

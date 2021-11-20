@@ -14,7 +14,6 @@ export function* polygonLoadSaga(
 ): Generator<StrictEffect | Promise<boolean>, void> {
   const polygons: Polygon = { rings: [[[654, 42], [344, 2], [334, 57], [76, 24], [654, 42]], [[1, 42], [4, 2], [34, 57], [1, 42]]] }
 
-  console.log(polygons)
   yield put(
     mapActions.Actions.polygonUpdate({ polygons: [polygons] }),
   );

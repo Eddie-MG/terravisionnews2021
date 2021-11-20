@@ -1,0 +1,1 @@
+export interface ContinentCsv { Id: string; 'Human development groups': string, HDI: string, 'Life_ expectancy': number, 'Mean years of schooling': number }[]
