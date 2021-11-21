@@ -13,24 +13,30 @@ export function* polygonLoadSaga(
     marker: { x: 0, y: 0, width: 128, height: 128, mask: false },
   };
 
+  // Create basic polygon layer from geojson data
   const europeLayer = new PolygonLayer({
     id: 'real-poly-layer',
     data: action.payload.geoJson,
     getPolygon: d => (d as { type: string; geometry: { type: string; coordinates: Position[][] } }).geometry.coordinates,
     getFillColor: [160, 160, 180, 200],
-    getLineColor: [80, 80, 80],
+    getLineColor: [0, 0, 0],
+    getLineWidth: 1,
+    lineWidthMinPixels: 1,
     pickable: true,
     stroked: true,
     filled: true,
     wireframe: true,
   })
 
+  // Initial story data that could be pulled in from database
   const pointData = [
     { properties: { name: 'Chavignol', story: '5 Cheese Hacks Only the Pros Know' }, coordinates: [2.844560, 47.397411] },
     { properties: { name: 'Milan', story: '11 Hottest Street Light Trends for 2022' }, coordinates: [9.195585, 45.467905] },
     { properties: { name: 'Kyiv', story: '9 Best Practices for Remote Workers in the Shark Industry' }, coordinates: [30.479160, 50.44044] },
     { properties: { name: 'Zurich', story: '10 Ways Investing in Maple Syrup Can Make You a Millionaire' }, coordinates: [8.519453, 47.385598] },
   ]
+
+  // Icon layer based on the story data above
   const layer = new IconLayer({
     id: 'icon-layer',
     data: pointData,
