@@ -5,7 +5,6 @@ import { put, StrictEffect, takeEvery } from 'redux-saga/effects';
 // import { IconLayer, PolygonLayer } from '@deck.gl/layers';
 // import { Position, Position2D } from '@deck.gl/core';
 import * as mapActions from '../actions/map';
-import * as initActions from '../actions/init';
 import { Polygon } from '../../types/entity/Map';
 
 
@@ -20,5 +19,5 @@ export function* polygonLoadSaga(
 }
 
 export function* mapSagas(): Generator<StrictEffect, void, unknown> {
-  yield takeEvery(initActions.ActionTypes.INIT, polygonLoadSaga);
+  yield takeEvery(mapActions.ActionTypes.POLYGON_REQUEST, polygonLoadSaga);
 }

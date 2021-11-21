@@ -1,10 +1,11 @@
 import { AppBar, Toolbar, IconButton, Typography, Button, Grid } from '@mui/material';
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { GlobalState } from '../../../redux';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box } from '@mui/system';
 import styled from 'styled-components';
+import { Actions } from '../../../redux/actions/map';
 import { DeckMap } from '../../molecules/DeckMap';
 import { ArticleCard } from '../../molecules/ArticleCard';
 import { ContinentCsv } from '../../../types/entity/CsvDto';
@@ -12,9 +13,10 @@ import { ContinentCsv } from '../../../types/entity/CsvDto';
 interface Props { demographicData: ContinentCsv }
 
 export const Home: FC<Props> = props => {
+  const dispatch = useDispatch();
+  // Dispatch polygon request action with statically loaded data
+  dispatch(Actions.polygonRequest({ data: props.demographicData }));
   const statePolygons = useSelector((state: GlobalState) => state.map.polygons);
-
-  // console.log(props.demographicData)
 
   return (
     <>
@@ -31,7 +33,7 @@ export const Home: FC<Props> = props => {
               < MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              News
+              Terravision News
             </Typography>
             <Button color="inherit">Login</Button>
           </Toolbar>
