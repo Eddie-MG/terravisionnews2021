@@ -18,6 +18,33 @@ export const Home: FC<Props> = props => {
   dispatch(Actions.polygonRequest({ continentalData: props.continentalDemographicData, geoJson: props.geoJson }));
   const statePolygons = useSelector((state: GlobalState) => state.map.polygons);
 
+  const articleData = [
+    {
+      title: '5 Cheese Hacks Only the Pros Know',
+      body: 'Follow these steps and you\'ll be wowing your friends with your cheese skills.',
+      category: 'Food',
+      date: '21/11/2021'
+    },
+    {
+      title: '11 Hottest Street Light Trends for 2022',
+      body: 'Only few people have access to the knowledge on the latest street light trends.',
+      category: 'Style & Fashion',
+      date: '05/12/2021'
+    },
+    {
+      title: '10 Ways Investing in Maple Syrup Can Make You a Millionaire',
+      body: 'Few people know there\'s money in maple syrup read this article to find out how.',
+      category: 'Dolla Dolla',
+      date: '53/13/2021'
+    },
+    {
+      title: '9 Best Practices for Remote Workers in the Shark Industry',
+      body: 'We know remote working has affected all of us but what about the sharks...',
+      category: 'Nature',
+      date: '29/02/2022'
+    },
+  ]
+
   return (
     <>
       <OverlayDiv>
@@ -44,18 +71,9 @@ export const Home: FC<Props> = props => {
       </Box>
       <OverlayDiv>
         <Grid container spacing={4} sx={{ marginY: 2 }}>
-          <Grid item xs={6}>
-            <ArticleCard />
-          </Grid>
-          <Grid item xs={6}>
-            <ArticleCard />
-          </Grid>
-          <Grid item xs={6}>
-            <ArticleCard />
-          </Grid>
-          <Grid item xs={6}>
-            <ArticleCard />
-          </Grid>
+          {articleData.map(article => <Grid key={article.title} item xs={6}>
+            <ArticleCard articleTitle={article.title} articleBody={article.body} articleCategory={article.category} articleDate={article.date} />
+          </Grid>)}
         </Grid>
       </OverlayDiv>
     </>
