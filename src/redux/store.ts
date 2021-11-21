@@ -30,6 +30,7 @@ export const configureStore = (
     sagaTask: sagaMiddleware.run(rootSagas),
   };
 
+  // @ts-ignore
   return reduxSagaStore;
 };
 
