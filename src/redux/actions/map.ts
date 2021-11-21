@@ -1,4 +1,4 @@
-import { ContinentCsv } from '../../types/entity/CsvDto';
+import { ContinentCsv, GEOJson, HDICsv } from '../../types/entity/CsvDto';
 import { Polygon } from '../../types/entity/Map';
 import { ActionsUnion, createAction } from '../helpers';
 
@@ -9,7 +9,7 @@ export enum ActionTypes {
 }
 
 export const Actions = {
-  polygonRequest: (payload: { data: ContinentCsv }) => createAction(ActionTypes.POLYGON_REQUEST, payload),
+  polygonRequest: (payload: { continentalData: ContinentCsv; countryData: HDICsv; geoJson: GEOJson }) => createAction(ActionTypes.POLYGON_REQUEST, payload),
   polygonSet: (payload: { country: string; polygon: Polygon }) => createAction(ActionTypes.POLYGON_SET, payload),
   polygonUpdate: (payload: { polygons: Polygon[] }) => createAction(ActionTypes.POLYGON_UPDATE, payload),
   // sectorSuccess: (payload: { id: string; name: string }[]) =>

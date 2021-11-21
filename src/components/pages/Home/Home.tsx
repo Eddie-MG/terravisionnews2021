@@ -8,14 +8,14 @@ import styled from 'styled-components';
 import { Actions } from '../../../redux/actions/map';
 import { DeckMap } from '../../molecules/DeckMap';
 import { ArticleCard } from '../../molecules/ArticleCard';
-import { ContinentCsv } from '../../../types/entity/CsvDto';
+import { ContinentCsv, GEOJson, HDICsv } from '../../../types/entity/CsvDto';
 
-interface Props { demographicData: ContinentCsv }
+interface Props { continentalDemographicData: ContinentCsv; countryDemographicData: HDICsv; geoJson: GEOJson }
 
 export const Home: FC<Props> = props => {
   const dispatch = useDispatch();
   // Dispatch polygon request action with statically loaded data
-  dispatch(Actions.polygonRequest({ data: props.demographicData }));
+  dispatch(Actions.polygonRequest({ continentalData: props.continentalDemographicData, countryData: props.countryDemographicData, geoJson: props.geoJson }));
   const statePolygons = useSelector((state: GlobalState) => state.map.polygons);
 
   return (
