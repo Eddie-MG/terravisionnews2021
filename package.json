@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next ./src",
     "build": "next build ./src",
-    "start": "NODE_ENV=production next -p $PORT start ./src",
+    "start": "NODE_ENV=production next start -p $PORT ./src",
     "lint": "next lint",
     "tsc": "tsc -p ./src/tsconfig.json"
   },
