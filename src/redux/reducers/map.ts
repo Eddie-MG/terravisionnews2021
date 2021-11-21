@@ -18,16 +18,6 @@ export const mapReducer = (
   action: map.Actions,
 ): State => {
   switch (action.type) {
-    case map.ActionTypes.POLYGON_SET:
-      return {
-        ...state,
-        polygons: [action.payload.polygon, ...state.polygons],
-      };
-    case map.ActionTypes.POLYGON_UPDATE:
-      return {
-        ...state,
-        polygons: action.payload.polygons
-      }
     case map.ActionTypes.LAYER_UPDATE:
       return {
         ...state,

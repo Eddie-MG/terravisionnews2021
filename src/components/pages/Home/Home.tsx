@@ -17,7 +17,6 @@ export const Home: FC<Props> = props => {
   const dispatch = useDispatch();
   // Dispatch polygon request action with statically loaded data
   dispatch(Actions.polygonRequest({ geoJson: props.geoJson }));
-  const statePolygons = useSelector((state: GlobalState) => state.map.polygons);
 
   const articleData = [
     {
