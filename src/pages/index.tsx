@@ -1,12 +1,10 @@
-import { features } from 'process'
 import { Home } from '../components/pages/Home'
-import { loadCsv } from '../lib/loadCsv'
 import { loadJson } from '../lib/loadJson'
-import { GeoJsonFeature, GeoJsonStrippedFeature } from '../types/entity/CsvDto'
+import { GeoJsonStrippedFeature } from '../types/entity/CsvDto'
 
 export async function getStaticProps() {
-  const demographicData = {} // loadCsv('Continent_HDI.csv')
-  const HDIData = {} // loadCsv('HDI.csv')
+  // const demographicData = {} // loadCsv('Continent_HDI.csv')
+  // const HDIData = {} // loadCsv('HDI.csv')
   const GeoJson = loadJson('countries.geojson')
 
   const europeanData = GeoJson.features.filter(polygon => polygon.properties.continent === 'Europe')
@@ -19,7 +17,6 @@ export async function getStaticProps() {
   // put(mapActions.Actions.polygonRequest({ data: demographicData })) // TODO: Try and dispatch action in getStaticProps
   return {
     props: {
-      continentalDemographicData: demographicData,
       geoJson: singlePolygonData.concat(formattedMultiPolygonData)
     }
   }

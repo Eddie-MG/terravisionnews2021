@@ -10,7 +10,7 @@ export enum ActionTypes {
 }
 
 export const Actions = {
-  polygonRequest: (payload: { continentalData: ContinentCsv; geoJson: GeoJsonStrippedFeature[] }) => createAction(ActionTypes.POLYGON_REQUEST, payload),
+  polygonRequest: (payload: { geoJson: GeoJsonStrippedFeature[] }) => createAction(ActionTypes.POLYGON_REQUEST, payload),
   polygonSet: (payload: { country: string; polygon: Polygon }) => createAction(ActionTypes.POLYGON_SET, payload),
   polygonUpdate: (payload: { polygons: Polygon[] }) => createAction(ActionTypes.POLYGON_UPDATE, payload),
   layerUpdate: (payload: { layers: any[] }) => createAction(ActionTypes.LAYER_UPDATE, payload),

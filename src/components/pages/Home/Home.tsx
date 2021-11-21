@@ -1,6 +1,7 @@
 import { AppBar, Toolbar, IconButton, Typography, Button, Grid } from '@mui/material';
 import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
+import Head from 'next/head'
 import { GlobalState } from '../../../redux';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box } from '@mui/system';
@@ -8,14 +9,14 @@ import styled from 'styled-components';
 import { Actions } from '../../../redux/actions/map';
 import { DeckMap } from '../../molecules/DeckMap';
 import { ArticleCard } from '../../molecules/ArticleCard';
-import { ContinentCsv, GeoJsonStrippedFeature, HDICsv } from '../../../types/entity/CsvDto';
+import { GeoJsonStrippedFeature } from '../../../types/entity/CsvDto';
 
-interface Props { continentalDemographicData: ContinentCsv; geoJson: GeoJsonStrippedFeature[] }
+interface Props { geoJson: GeoJsonStrippedFeature[] }
 
 export const Home: FC<Props> = props => {
   const dispatch = useDispatch();
   // Dispatch polygon request action with statically loaded data
-  dispatch(Actions.polygonRequest({ continentalData: props.continentalDemographicData, geoJson: props.geoJson }));
+  dispatch(Actions.polygonRequest({ geoJson: props.geoJson }));
   const statePolygons = useSelector((state: GlobalState) => state.map.polygons);
 
   const articleData = [
@@ -47,6 +48,10 @@ export const Home: FC<Props> = props => {
 
   return (
     <>
+      <Head>
+        <title>Terravision News</title>
+        <link rel="icon" href="/favicon.svg" />
+      </Head>
       <OverlayDiv>
         <AppBar>
           <Toolbar>
