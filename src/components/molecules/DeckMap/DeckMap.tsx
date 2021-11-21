@@ -27,6 +27,16 @@ export const DeckMap: FC = () => {
       controller={true}
       views={[new MapView({ width: '100%', height: '44%' })]}
       layers={mapLayers}
+      getTooltip={({ object }) => {
+        if (object) {
+          const typedObj = (object as unknown) as {
+            properties: { scalerank: number; sovereignt: string; level: number; type: string; geounit: string; subunit: string; name: string; name_long: string; economy: string; continent: string; pop_est: number; gdp_md_est: number; income_grp: string }
+          };
+          return `Name: ${typedObj.properties.name_long}\nContinent: ${typedObj.properties.continent}\nGDP: ${typedObj.properties.gdp_md_est}`;
+        } else {
+          return null;
+        }
+      }}
     >
       <StaticMap mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN} />
     </DeckGL>

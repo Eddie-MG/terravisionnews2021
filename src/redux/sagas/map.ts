@@ -14,22 +14,23 @@ export function* polygonLoadSaga(
 ): Generator<StrictEffect | Promise<boolean>, void> {
   const polygons: Polygon = { rings: [[[654, 42], [344, 2], [334, 57], [76, 24], [654, 42]], [[1, 42], [4, 2], [34, 57], [1, 42]]] }
 
-  const polygonLayer = new PolygonLayer({
-    id: 'demo-poly-layer',
-    data: [{ contour: [[-1.446548, 51.440850], [25.470827, 52.239801], [28.678885, 38.636820], [-5.713317, 38.753526], [-1.446548, 51.440850]] }],
-    getPolygon: d => (d as { contour: Position[] }).contour,
-    getFillColor: [160, 160, 180, 200],
-    pickable: true,
-    stroked: true,
-    filled: true,
-    wireframe: true,
-  })
+  // const polygonLayer = new PolygonLayer({
+  //   id: 'demo-poly-layer',
+  //   data: [{ contour: [[-1.446548, 51.440850], [25.470827, 52.239801], [28.678885, 38.636820], [-5.713317, 38.753526], [-1.446548, 51.440850]] }],
+  //   getPolygon: d => (d as { contour: Position[] }).contour,
+  //   getFillColor: [160, 160, 180, 200],
+  //   pickable: true,
+  //   stroked: true,
+  //   filled: true,
+  //   wireframe: true,
+  // })
 
   const europeLayer = new PolygonLayer({
     id: 'real-poly-layer',
     data: action.payload.geoJson,
     getPolygon: d => (d as { type: string; geometry: { type: string; coordinates: Position[][] } }).geometry.coordinates,
     getFillColor: [160, 160, 180, 200],
+    getLineColor: [80, 80, 80],
     pickable: true,
     stroked: true,
     filled: true,
