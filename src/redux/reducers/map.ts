@@ -3,12 +3,14 @@ import * as map from '../actions/map';
 
 export interface State {
   polygons: Polygon[];
-  countries: string[]
+  countries: string[];
+  layers: any[];
 }
 
 export const mapInitialState: State = {
   polygons: [],
-  countries: []
+  countries: [],
+  layers: []
 };
 
 export const mapReducer = (
@@ -25,6 +27,11 @@ export const mapReducer = (
       return {
         ...state,
         polygons: action.payload.polygons
+      }
+    case map.ActionTypes.LAYER_UPDATE:
+      return {
+        ...state,
+        layers: action.payload.layers
       }
     default:
       return state;

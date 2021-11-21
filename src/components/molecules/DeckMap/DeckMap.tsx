@@ -10,21 +10,23 @@ const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiZWRkaWV0aGVvZG8iLCJhIjoiY2t3ODF1dGdzMGR6
 
 // Viewport settings
 const INITIAL_VIEW_STATE = {
-  latitude: 51.5072,
-  longitude: 0.1276,
-  zoom: 10,
+  longitude: 36.884168,
+  latitude: 69.848866,
+  zoom: 1.8,
   pitch: 0,
   bearing: 0
 };
 
 export const DeckMap: FC = () => {
   const statePolygons = useSelector((state: GlobalState) => state.map.polygons);
+  const mapLayers = useSelector((state: GlobalState) => state.map.layers);
 
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
       views={[new MapView({ width: '100%', height: '44%' })]}
+      layers={mapLayers}
     >
       <StaticMap mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN} />
     </DeckGL>
