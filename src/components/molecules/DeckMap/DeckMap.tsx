@@ -18,7 +18,6 @@ const INITIAL_VIEW_STATE = {
 };
 
 export const DeckMap: FC = () => {
-  const statePolygons = useSelector((state: GlobalState) => state.map.polygons);
   const mapLayers = useSelector((state: GlobalState) => state.map.layers);
 
   return (
@@ -30,9 +29,13 @@ export const DeckMap: FC = () => {
       getTooltip={({ object }) => {
         if (object) {
           const typedObj = (object as unknown) as {
-            properties: { scalerank: number; sovereignt: string; level: number; type: string; geounit: string; subunit: string; name: string; name_long: string; economy: string; continent: string; pop_est: number; gdp_md_est: number; income_grp: string }
+            properties: { story?: string; scalerank?: number; sovereignt?: string; level?: number; type?: string; geounit?: string; subunit?: string; name?: string; name_long?: string; economy?: string; continent?: string; pop_est?: number; gdp_md_est?: number; income_grp?: string }
           };
-          return `Name: ${typedObj.properties.name_long}\nContinent: ${typedObj.properties.continent}\nGDP: ${typedObj.properties.gdp_md_est}`;
+          if (typedObj.properties.continent) {
+            return `Name: ${typedObj.properties.name_long}\nContinent: ${typedObj.properties.continent}\nGDP: ${typedObj.properties.gdp_md_est}`;
+          } else {
+            return `City: ${typedObj.properties.name}\nStory: ${typedObj.properties.story}`;
+          }
         } else {
           return null;
         }

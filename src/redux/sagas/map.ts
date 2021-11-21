@@ -1,29 +1,17 @@
 import { put, StrictEffect, takeEvery } from 'redux-saga/effects';
 
-
-// import { CartoSQLLayer, colorContinuous } from '@deck.gl/carto';
-import { PolygonLayer } from '@deck.gl/layers';
+import { PolygonLayer, IconLayer } from '@deck.gl/layers';
 import { Position } from '@deck.gl/core';
 import * as mapActions from '../actions/map';
-import * as initActions from '../actions/init';
-import { Polygon } from '../../types/entity/Map';
+import { Position2D } from 'deck.gl';
 
 
 export function* polygonLoadSaga(
   action: ReturnType<typeof mapActions.Actions.polygonRequest>,
 ): Generator<StrictEffect | Promise<boolean>, void> {
-  const polygons: Polygon = { rings: [[[654, 42], [344, 2], [334, 57], [76, 24], [654, 42]], [[1, 42], [4, 2], [34, 57], [1, 42]]] }
-
-  // const polygonLayer = new PolygonLayer({
-  //   id: 'demo-poly-layer',
-  //   data: [{ contour: [[-1.446548, 51.440850], [25.470827, 52.239801], [28.678885, 38.636820], [-5.713317, 38.753526], [-1.446548, 51.440850]] }],
-  //   getPolygon: d => (d as { contour: Position[] }).contour,
-  //   getFillColor: [160, 160, 180, 200],
-  //   pickable: true,
-  //   stroked: true,
-  //   filled: true,
-  //   wireframe: true,
-  // })
+  const ICON_MAPPING = {
+    marker: { x: 0, y: 0, width: 128, height: 128, mask: false },
+  };
 
   const europeLayer = new PolygonLayer({
     id: 'real-poly-layer',
@@ -37,50 +25,30 @@ export function* polygonLoadSaga(
     wireframe: true,
   })
 
-  // const data = [
-  //   {
-  //     // Simple polygon (array of coords)
-  //     contour: [[-122.4, 37.7], [-122.4, 37.8], [-122.5, 37.8], [-122.5, 37.7], [-122.4, 37.7]],
-  //     zipcode: 94107,
-  //     population: 26599,
-  //     area: 6.11
-  //   },
-  //   {
-  //     // Complex polygon with holes (array of rings)
-  //     contour: [
-  //       [[-122.4, 37.7], [-122.4, 37.8], [-122.5, 37.8], [-122.5, 37.7], [-122.4, 37.7]],
-  //       [[-122.45, 37.73], [-122.47, 37.76], [-122.47, 37.71], [-122.45, 37.73]]
-  //     ],
-  //     zipcode: 94107,
-  //     population: 26599,
-  //     area: 6.11
-  //   },
-  // ]
+  const pointData = [
+    { properties: { name: 'Chavignol', story: '5 Cheese Hacks Only the Pros Know' }, coordinates: [2.844560, 47.397411] },
+    { properties: { name: 'Milan', story: '11 Hottest Street Light Trends for 2022' }, coordinates: [9.195585, 45.467905] },
+    { properties: { name: 'Kyiv', story: '9 Best Practices for Remote Workers in the Shark Industry' }, coordinates: [30.479160, 50.44044] },
+    { properties: { name: 'Zurich', story: '10 Ways Investing in Maple Syrup Can Make You a Millionaire' }, coordinates: [8.519453, 47.385598] },
+  ]
+  const layer = new IconLayer({
+    id: 'icon-layer',
+    data: pointData,
+    pickable: true,
+    iconAtlas: 'https://upload.wikimedia.org/wikipedia/commons/e/ed/Map_pin_icon.svg',
+    iconMapping: ICON_MAPPING,
+    getIcon: d => 'marker',
+    sizeScale: 15,
+    getPosition: d => (d as { coordinates: Position2D; exits: number }).coordinates,
+    getSize: d => 5,
+    getColor: d => [50, 168, 82, 255],
+  });
 
-
-  // const layer = new PolygonLayer({
-  //   id: 'polygon-layer',
-  //   data,
-  //   pickable: true,
-  //   stroked: true,
-  //   filled: true,
-  //   wireframe: true,
-  //   lineWidthMinPixels: 1,
-  //   getPolygon: d => d.contour,
-  //   getElevation: d => d.population / d.area / 10,
-  //   getFillColor: d => [d.population / d.area / 60, 140, 0],
-  //   getLineColor: [80, 80, 80],
-  //   getLineWidth: 1
-  // });
   yield put(
-    mapActions.Actions.polygonUpdate({ polygons: [polygons] }),
-  );
-  yield put(
-    mapActions.Actions.layerUpdate({ layers: [europeLayer] }),
+    mapActions.Actions.layerUpdate({ layers: [europeLayer, layer] }),
   );
 }
 
 export function* mapSagas(): Generator<StrictEffect, void, unknown> {
-  // yield takeEvery(initActions.ActionTypes.INIT, polygonLoadSaga);
   yield takeEvery(mapActions.ActionTypes.POLYGON_REQUEST, polygonLoadSaga);
 }
